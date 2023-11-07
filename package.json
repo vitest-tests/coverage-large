@@ -3,7 +3,7 @@
   "packageManager": "pnpm@8.9.2",
   "scripts": {
     "postinstall": "node ./generate-files.mjs",
-    "test": "vitest --run"
+    "test": "CI=true vitest --run"
   },
   "devDependencies": {
     "@types/node": "^20.9.0",

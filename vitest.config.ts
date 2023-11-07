@@ -21,13 +21,13 @@ class MainThreadMemoryReporter implements Reporter {
         clearInterval(interval);
         this.ctx.logger.log("Stopping memory logger");
       }
-    }, 1000);
+    }, 500);
   }
 }
 
 export default defineConfig({
   test: {
-    env: { CI: "true" },
+    logHeapUsage: true,
     reporters: ["verbose", new MainThreadMemoryReporter()],
     coverage: {
       enabled: true,
