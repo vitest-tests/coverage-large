@@ -1,2 +1,5 @@
 node_modules
+coverage
 .DS_Store
+**/src/covered-files/**
+**/src/uncovered-files/**
