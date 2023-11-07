@@ -6,6 +6,7 @@
     "test": "vitest --run"
   },
   "devDependencies": {
+    "@types/node": "^20.9.0",
     "@vitest/coverage-istanbul": "^0.34.6",
     "typescript": "^5.2.2",
     "vite": "^4.5.0",

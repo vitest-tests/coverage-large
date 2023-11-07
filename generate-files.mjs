@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 const COVERED_FILE_COUNT = Array(100).fill(0);
 const UNCOVERED_FILE_COUNT = Array(200).fill(0);
-const FUNCTION_COUNT = Array(10).fill(0);
+const FUNCTION_COUNT = Array(50).fill(0);
 
 const fileContents = FUNCTION_COUNT.map((_, index) =>
   `
