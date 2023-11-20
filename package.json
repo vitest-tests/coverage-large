@@ -1,5 +1,6 @@
 {
   "name": "@vitest-tests/coverage-large",
+  "type": "module",
   "packageManager": "pnpm@8.9.2",
   "scripts": {
     "postinstall": "node ./generate-files.mjs",

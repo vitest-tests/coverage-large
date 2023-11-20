@@ -3,3 +3,8 @@ coverage
 .DS_Store
 **/src/covered-files/**
 **/src/uncovered-files/**
+**/test/*.test.ts
+
+# Profiling
+*.heapprofile
+*.sh
