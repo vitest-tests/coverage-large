@@ -1,12 +1,13 @@
 import * as fs from "node:fs";
 import { resolve } from "node:path";
 
-const COVERED_FILE_COUNT = Array(100).fill(0);
-const UNCOVERED_FILE_COUNT = Array(500).fill(0);
-const FUNCTION_COUNT = Array(100).fill(0);
+const COVERED_FILE_COUNT = parseInt(process.env.COVERED_FILE_COUNT || 200);
+const UNCOVERED_FILE_COUNT = parseInt(process.env.UNCOVERED_FILE_COUNT || 200);
+const FUNCTION_COUNT = parseInt(process.env.FUNCTION_COUNT || 200);
 
-const sourceFileContents = FUNCTION_COUNT.map((_, index) =>
-  `
+const sourceFileContents = toList(FUNCTION_COUNT)
+  .map((index) =>
+    `
 export function method${1 + index}(condition: number) {
   if (condition !== 1) {
     if (condition !== 2) {
@@ -23,7 +24,8 @@ export function method${1 + index}(condition: number) {
   return 0;
 }
 `.trim()
-).join("\n\n");
+  )
+  .join("\n\n");
 
 const testFileContents = (index) =>
   `
@@ -55,7 +57,7 @@ for (const [directory, count] of entries) {
 
   fs.mkdirSync(directory);
 
-  for (const i of count.keys()) {
+  for (const i of toList(count)) {
     const index = 1 + i;
     const filename = resolve(directory, `source-file-${index}.ts`);
     fs.writeFileSync(filename, sourceFileContents, "utf-8");
@@ -70,9 +72,13 @@ if (fs.existsSync(testDir)) {
 
 fs.mkdirSync(testDir);
 
-for (const i of COVERED_FILE_COUNT.keys()) {
+for (const i of toList(COVERED_FILE_COUNT)) {
   const index = 1 + i;
 
   const filename = resolve(testDir, `test-file-${index}.test.ts`);
   fs.writeFileSync(filename, testFileContents(index), "utf-8");
+}
+
+function toList(count) {
+  return Array.from(Array(count).fill(0).keys());
 }

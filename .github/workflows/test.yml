@@ -2,10 +2,32 @@ name: Test
 
 on:
   workflow_dispatch:
+    inputs:
+      source-and-test-file-count:
+        type: number
+        description: Count of source and test files to generate
+        required: true
+        default: 200
+      uncovered-file-count:
+        type: number
+        description: Count of uncovered files to generate
+        required: true
+        default: 500
+      file-function-count:
+        type: number
+        description: Count of functions to include in a generated file
+        required: true
+        default: 200
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    # Variables used by generate-files.mjs
+    env:
+      COVERED_FILE_COUNT: ${{ inputs.source-and-test-file-count }}
+      UNCOVERED_FILE_COUNT: ${{ inputs.uncovered-file-count }}
+      FUNCTION_COUNT: ${{ inputs.file-function-count }}
 
     steps:
       - uses: actions/checkout@v4
