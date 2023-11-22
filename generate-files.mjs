@@ -5,6 +5,9 @@ const COVERED_FILE_COUNT = parseInt(process.env.COVERED_FILE_COUNT || 200);
 const UNCOVERED_FILE_COUNT = parseInt(process.env.UNCOVERED_FILE_COUNT || 200);
 const FUNCTION_COUNT = parseInt(process.env.FUNCTION_COUNT || 200);
 
+console.log("Generating files");
+console.log({ COVERED_FILE_COUNT, UNCOVERED_FILE_COUNT, FUNCTION_COUNT });
+
 const sourceFileContents = toList(FUNCTION_COUNT)
   .map((index) =>
     `
