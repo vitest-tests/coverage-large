@@ -1,8 +1,9 @@
 import * as fs from "node:fs";
 import { resolve } from "node:path";
 
-const COVERED_FILE_COUNT = parseInt(process.env.COVERED_FILE_COUNT || 200);
-const UNCOVERED_FILE_COUNT = parseInt(process.env.UNCOVERED_FILE_COUNT || 200);
+// 500, 500, 200 is enough to crash Vitest versions before https://github.com/vitest-dev/vitest/pull/4603
+const COVERED_FILE_COUNT = parseInt(process.env.COVERED_FILE_COUNT || 500);
+const UNCOVERED_FILE_COUNT = parseInt(process.env.UNCOVERED_FILE_COUNT || 500);
 const FUNCTION_COUNT = parseInt(process.env.FUNCTION_COUNT || 200);
 
 console.log("Generating files");
