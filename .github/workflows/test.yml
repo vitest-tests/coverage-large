@@ -18,6 +18,14 @@ on:
         description: Count of functions to include in a generated file
         required: true
         default: 200
+      provider:
+        type: choice
+        description: Vitest Coverage Provider to use
+        options:
+          - istanbul
+          - v8
+        required: true
+        default: istanbul
 
 jobs:
   build:
@@ -35,16 +43,13 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-
-      - name: Set node version to 18
+      - name: Set node version to 20
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install
         run: pnpm install
 
-      - name: Test
-        run: pnpm test
+      - name: Test with ${{ inputs.provider }}
+        run: pnpm run test --coverage.provider=${{ inputs.provider }}

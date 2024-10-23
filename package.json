@@ -9,6 +9,7 @@
   "devDependencies": {
     "@types/node": "^20.9.0",
     "@vitest/coverage-istanbul": "latest",
+    "@vitest/coverage-v8": "latest",
     "typescript": "^5.2.2",
     "vite": "^5.4.10",
     "vitest": "latest"
