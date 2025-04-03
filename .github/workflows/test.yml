@@ -24,6 +24,7 @@ on:
         options:
           - istanbul
           - v8
+          - v8-ast-aware
         required: true
         default: istanbul
 
@@ -51,5 +52,14 @@ jobs:
       - name: Install
         run: pnpm install
 
+      - name: Install preview packages
+        if: inputs.provider == 'v8-ast-aware'
+        run: "pnpm install vitest@https://pkg.pr.new/vitest@7736 @vitest/coverage-istanbul@https://pkg.pr.new/@vitest/coverage-istanbul@7736 @vitest/coverage-v8@https://pkg.pr.new/@vitest/coverage-v8@7736"
+
       - name: Test with ${{ inputs.provider }}
+        if: inputs.provider != 'v8-ast-aware'
         run: pnpm run test --coverage.provider=${{ inputs.provider }}
+
+      - name: Test with ${{ inputs.provider }} extra arguments
+        if: inputs.provider == 'v8-ast-aware'
+        run: pnpm run test --coverage.provider=v8 --coverage.experimentalAstAwareRemapping
