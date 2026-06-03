@@ -25,7 +25,7 @@ on:
           - istanbul
           - v8
         required: true
-        default: istanbul
+        default: v8
 
 jobs:
   build:
