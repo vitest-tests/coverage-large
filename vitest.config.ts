@@ -26,7 +26,7 @@ export default defineConfig({
     reporters: ["verbose", new MainThreadMemoryReporter()],
     coverage: {
       enabled: true,
-      provider: "istanbul",
+      provider: "v8",
       reporter: ["text-summary", "json"],
       include: ["src/**"],
 
