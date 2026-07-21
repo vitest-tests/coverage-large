@@ -26,6 +26,14 @@ on:
           - v8
         required: true
         default: v8
+      project:
+        type: choice
+        description: Vitest project to run
+        options:
+          - node
+          - browser
+        required: true
+        default: node
 
 jobs:
   build:
@@ -51,5 +59,9 @@ jobs:
       - name: Install
         run: pnpm install
 
-      - name: Test with ${{ inputs.provider }}
-        run: pnpm run test --coverage.provider=${{ inputs.provider }}
+      - name: Install Playwright Chromium
+        if: ${{ inputs.project == 'browser' }}
+        run: pnpm exec playwright install
+
+      - name: Test ${{ inputs.project }} with ${{ inputs.provider }}
+        run: pnpm run test --coverage.provider=${{ inputs.provider }} --project=${{ inputs.project }}

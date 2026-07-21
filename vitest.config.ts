@@ -1,7 +1,8 @@
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
+import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vitest/config";
-import type { Reporter, Vitest } from "vitest";
+import type { Reporter, Vitest } from "vitest/node";
 
 class MainThreadMemoryReporter implements Reporter {
   onInit(ctx: Vitest) {
@@ -22,16 +23,33 @@ class MainThreadMemoryReporter implements Reporter {
 export default defineConfig({
   test: {
     watch: false,
-    logHeapUsage: true,
     reporters: ["verbose", new MainThreadMemoryReporter()],
     coverage: {
       enabled: true,
       provider: "v8",
       reporter: ["text-summary", "json"],
       include: ["src/**"],
-
-      // Enabled by default in v1
-      all: true,
     },
+    projects: [
+      {
+        test: {
+          name: "node",
+          include: ["test/**/*.test.ts"],
+          logHeapUsage: true,
+        },
+      },
+      {
+        test: {
+          name: "browser",
+          include: ["test/**/*.test.ts"],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [{ browser: "chromium" }],
+          },
+        },
+      },
+    ],
   },
 });

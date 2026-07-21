@@ -4,12 +4,16 @@
   "packageManager": "pnpm@8.9.2",
   "scripts": {
     "postinstall": "node ./generate-files.mjs",
-    "test": "CI=true vitest --run"
+    "test": "CI=true vitest --run",
+    "test:node": "CI=true vitest --run --project node",
+    "test:browser": "CI=true vitest --run --project browser"
   },
   "devDependencies": {
     "@types/node": "^20.9.0",
+    "@vitest/browser-playwright": "latest",
     "@vitest/coverage-istanbul": "latest",
     "@vitest/coverage-v8": "latest",
+    "playwright": "latest",
     "typescript": "^5.2.2",
     "vite": "^8.0.1",
     "vitest": "latest"
